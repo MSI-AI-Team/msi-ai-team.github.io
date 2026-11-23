@@ -1,0 +1,17 @@
+{
+  "id": "/",
+  "name": "Let's Read",
+  "short_name": "Let's Read",
+  "description": "Free learn-to-read lessons for children, in English, Hindi and Gujarati.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#cfe9ff",
+  "theme_color": "#cfe9ff",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
