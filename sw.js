@@ -5,7 +5,7 @@
      Range) so a 206 partial response is never what gets cached.
    - The clip manifest and word timings: network first (they change when content grows).
    - Never cache an HTML page under an asset URL. Old caches are deleted on activate. */
-const CACHE = 'letsread-v4'; // v4: Hindi + Gujarati in the ElevenLabs voice (2026-11-22), so phones drop the old clips
+const CACHE = 'letsread-v5'; // v5: every song rewritten and re-sung (2026-11-23): the song files keep their names, so phones must drop the old ones
 const CACHE_FIRST = [/^\/art\//, /^\/books\//, /^\/songs\//, /^\/music\//, /^\/audio\/(?!manifest|timings)/, /^\/api\/tts/, /^\/assets\//, /\.(?:woff2?|ttf)$/];
 const NETWORK_FIRST = [/^\/audio\/manifest\.json$/, /^\/audio\/timings\.json$/];
 const MEDIA = /^\/(songs|music|audio)\//;
