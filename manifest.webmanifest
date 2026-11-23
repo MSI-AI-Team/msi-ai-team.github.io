@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "Let's Read",
-  "short_name": "Let's Read",
-  "description": "Free learn-to-read lessons for children, in English, Hindi and Gujarati.",
+  "name": "Happy Akshar",
+  "short_name": "Happy Akshar",
+  "description": "Free learn-to-read lessons for children from the Shah Happiness Foundation, in English, Hindi and Gujarati.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

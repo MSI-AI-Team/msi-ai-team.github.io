@@ -3,7 +3,7 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "io.github.msiaiteam.letsread",
+      "package_name": "health.myhappy.happyakshar",
       "sha256_cert_fingerprints": ["03:7D:DC:6F:67:8D:E7:6C:30:4E:14:41:9D:CC:66:39:67:5A:89:0B:FA:6A:83:BE:86:A1:FF:28:32:DA:B2:25"]
     }
   }
