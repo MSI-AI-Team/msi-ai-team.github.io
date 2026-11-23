@@ -4,7 +4,10 @@
     "target": {
       "namespace": "android_app",
       "package_name": "health.myhappy.happyakshar",
-      "sha256_cert_fingerprints": ["03:7D:DC:6F:67:8D:E7:6C:30:4E:14:41:9D:CC:66:39:67:5A:89:0B:FA:6A:83:BE:86:A1:FF:28:32:DA:B2:25"]
+      "sha256_cert_fingerprints": [
+        "B0:73:51:87:C1:02:E8:F3:BE:27:6F:59:20:1F:E3:1E:B5:82:DA:92:EA:7F:BA:25:DB:D5:79:79:D3:D6:A7:7B",
+        "03:7D:DC:6F:67:8D:E7:6C:30:4E:14:41:9D:CC:66:39:67:5A:89:0B:FA:6A:83:BE:86:A1:FF:28:32:DA:B2:25"
+      ]
     }
   }
 ]
