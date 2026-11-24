@@ -15,14 +15,17 @@ self.addEventListener('install', (e) => {
   e.waitUntil(
     (async () => {
       const c = await caches.open(CACHE);
-      const shell = ['/', '/manifest.webmanifest', '/icon.svg', '/audio/manifest.json', '/audio/timings.json', '/music/map.mp3'];
+      const shell = ['/manifest.webmanifest', '/icon.svg', '/audio/manifest.json', '/audio/timings.json', '/music/map.mp3'];
       try {
+        // the page itself is the one just fetched past every cache, so it and the files it names
+        // agree (c.add('/') went through the HTTP cache and could keep a 10-minute-old page)
         const html = await (await fetch('/', { cache: 'no-store' })).text();
+        await c.put('/', new Response(html, { headers: { 'content-type': 'text/html; charset=utf-8' } }));
         for (const m of html.matchAll(/(?:src|href)="(\/assets\/[^"]+)"/g)) shell.push(m[1]);
       } catch {
         /* offline install: cache what we can */
       }
-      await Promise.all(shell.map((u) => c.add(u).catch(() => undefined)));
+      await Promise.all(shell.map((u) => c.add(new Request(u, { cache: 'reload' })).catch(() => undefined)));
     })(),
   );
 });
@@ -58,7 +61,11 @@ self.addEventListener('fetch', (e) => {
     e.respondWith(
       fetch(req)
         .then((res) => {
-          if (res.ok) caches.open(CACHE).then((c) => c.put(req, res.clone()));
+          // copy BEFORE handing it on: once the page has read the body, clone() throws
+          if (res.ok) {
+            const copy = res.clone();
+            caches.open(CACHE).then((c) => c.put(req, copy));
+          }
           return res;
         })
         .catch(() => caches.match(req)),
@@ -74,7 +81,14 @@ self.addEventListener('fetch', (e) => {
       // past the HTTP cache: GitHub Pages says max-age=600, which kept phones on the old app for 10 minutes
       fetch(new Request(req.url, { cache: 'no-cache', credentials: 'same-origin' }))
         .then((res) => {
-          caches.open(CACHE).then((c) => c.put('/', res.clone()));
+          // keep this page for offline. Copy it BEFORE handing it on: cloned later, the body was
+          // already read, the copy threw, and phones opened offline on the page cached at install
+          // (2026-11-23: an emulator ran today's build online and a build two releases old offline).
+          // Only the app page itself: privacy.html must never be what opens offline.
+          if (res.ok && (url.pathname === '/' || url.pathname === '/index.html')) {
+            const copy = res.clone();
+            caches.open(CACHE).then((c) => c.put('/', copy));
+          }
           return res;
         })
         .catch(() => caches.match('/')),
