@@ -9,13 +9,16 @@ const CACHE = 'letsread-v5'; // (page loads skip the HTTP cache since 2026-11-23
 const CACHE_FIRST = [/^\/art\//, /^\/books\//, /^\/songs\//, /^\/music\//, /^\/audio\/(?!manifest|timings)/, /^\/api\/tts/, /^\/assets\//, /\.(?:woff2?|ttf)$/];
 const NETWORK_FIRST = [/^\/audio\/manifest\.json$/, /^\/audio\/timings\.json$/];
 const MEDIA = /^\/(songs|music|audio)\//;
+// the pictures were all redrawn (soft 3D, 2026-11-26) under the same names: drop the old ones once,
+// keeping the songs and voice clips (a phone offline would otherwise have to fetch them all again)
+const PICTURES = '/__pictures-soft3d-1';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
   e.waitUntil(
     (async () => {
       const c = await caches.open(CACHE);
-      const shell = ['/manifest.webmanifest', '/icon.svg', '/audio/manifest.json', '/audio/timings.json', '/music/map.mp3'];
+      const shell = ['/manifest.webmanifest', '/icon-192.png', '/icon-boot.webp', '/audio/manifest.json', '/audio/timings.json', '/music/map.mp3'];
       try {
         // the page itself is the one just fetched past every cache, so it and the files it names
         // agree (c.add('/') went through the HTTP cache and could keep a 10-minute-old page)
@@ -34,6 +37,11 @@ self.addEventListener('activate', (e) =>
   e.waitUntil(
     (async () => {
       for (const k of await caches.keys()) if (k !== CACHE) await caches.delete(k);
+      const c = await caches.open(CACHE);
+      if (!(await c.match(PICTURES))) {
+        for (const r of await c.keys()) if (/^\/(art|books)\//.test(new URL(r.url).pathname)) await c.delete(r);
+        await c.put(PICTURES, new Response('1'));
+      }
       await self.clients.claim();
     })(),
   ),

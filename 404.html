@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#cfe9ff" />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#a6d6f8" />
+    <link rel="icon" href="/icon-192.png" type="image/png" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/icon-192.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -17,11 +17,18 @@
       href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Fredoka:wght@400;500;600;700&family=Mukta:wght@400;600;700&family=Mukta+Vaani:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/assets/index-DC6pQFu4.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-C6NxpQ8X.css">
+    <!-- shown at once, until the app's code arrives (a slow phone connection showed a white page) -->
+    <style>
+      html, body { margin: 0; height: 100%; background: linear-gradient(180deg, #a6d6f8 0%, #cfe8fa 45%, #eef3f1 82%, #f6efe2 100%) fixed; }
+      .boot { position: fixed; inset: 0; display: grid; place-items: center; }
+      .boot img { width: 116px; height: 116px; border-radius: 28px; box-shadow: 0 18px 40px -12px rgba(84, 52, 230, 0.55); animation: boot 1.8s ease-in-out infinite; }
+      @keyframes boot { 50% { transform: scale(1.06); } }
+    </style>
+    <script type="module" crossorigin src="/assets/index-BmSZkX3z.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-IH_BdF6L.css">
     <meta name="audio-version" content="c2a929ce62f4" />
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><div class="boot"><img src="/icon-boot.webp" alt="" /></div></div>
   </body>
 </html>
